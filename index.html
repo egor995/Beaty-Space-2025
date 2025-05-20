@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beauty Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter :wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2C3E50;
+      --accent-color: #A8763E;
+      --bg-color: #f8f9fa;
+      --white: #ffffff;
+      --border-dark: #333;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--primary-color);
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 4rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    nav a {
+      margin-left: 2rem;
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+    }
+
+    section {
+      padding: 100px 4rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .hero {
+      height: 100vh;
+      background-image: url('https://i.pinimg.com/736x/56/25/4d/56254da8884fb208b7cb1be88a32b40c.jpg ');
+      background-position: center;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.9;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      background: var(--accent-color);
+      color: white;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: background 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #bfa064;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      font-weight: 700;
+    }
+
+    /* About Section */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-text {
+      font-size: 1.1rem;
+    }
+
+    .about img {
+      width: 100%;
+      border-radius: 12px;
+      transition: transform 0.4s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .about img.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Services */
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .service-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border: 3px solid var(--border-dark);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+
+    /* Testimonials */
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .testimonial {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .write-review-btn {
+      display: block;
+      margin: 2rem auto 0 auto;
+      text-align: center;
+      padding: 0.8rem 2rem;
+      background: var(--accent-color);
+      color: white;
+      border-radius: 30px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .write-review-btn:hover {
+      background: #bfa064;
+    }
+
+    /* Contact */
+    .contacts {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    footer {
+      background: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .about {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+
+    /* Modals */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 90%;
+      color: var(--primary-color);
+    }
+
+    .modal-content h3 {
+      margin-bottom: 1rem;
+    }
+
+    .modal-content button {
+      margin-top: 1rem;
+      padding: 0.7rem 1.5rem;
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+
+    .modal-content button:hover {
+      background: #bfa064;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">Beauty Space</div>
+    <nav>
+      <a href="#home">Главная</a>
+      <a href="#about">О нас</a>
+      <a href="#services">Услуги</a>
+      <a href="#gallery">Фото</a>
+      <a href="#testimonials">Отзывы</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Beauty Space</h1>
+      <p>Пространство для мастеров красоты, где рождается вдохновение и создаются тренды.</p>
+      <button onclick="openExcursionModal()" class="btn">Записаться на экскурсию</button>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2 class="section-title">О нас</h2>
+    <div class="about">
+      <div>
+        <p class="about-text">
+          Beauty Space — это не просто коворкинг для мастеров красоты.
+          Мы создали пространство, объединяющее стилистов, визажистов, мастеров маникюра,
+          парикмахеров и бровистов под одной крышей — для комфортной работы, саморазвития и роста.
+        </p>
+        <ul style="margin-top: 1rem;">
+          <li>✔️ Удобные рабочие места с качественным освещением</li>
+          <li>✔️ Современная техника и оборудование</li>
+          <li>✔️ Аренда по часам или на длительный срок</li>
+          <li>✔️ Пространство для обучения и нетворкинга</li>
+        </ul>
+      </div>
+      <div>
+        <img src="https://cdn.qwenlm.ai/output/02df5ff0-6506-43ff-b8de-2efffc1206b0/t2i/2bfa5665-ff43-407b-a965-34e246ca5891/6737c9bd-862c-4a0c-8dde-eeda9075362d.png?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZV91c2VyX2lkIjoiMDJkZjVmZjAtNjUwNi00M2ZmLWI4ZGUtMmVmZmZjMTIwNmIwIiwicmVzb3VyY2VfaWQiOiI2NzM3YzliZC04NjJjLTRhMGMtOGRkZS1lZWRhOTA3NTM2MmQiLCJyZXNvdXJjZV9jaGF0X2lkIjpudWxsfQ.EjHkpqBze37XxkcOV888ogdawAKsRZgdZBc7UR5v3qI " alt="Мастер маникюра" class="about-img">
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services">
+    <h2 class="section-title">Наши услуги</h2>
+    <div class="services">
+      <div class="service-card" onclick="openServiceModal('hourly')">
+        <h3>Часовая аренда</h3>
+        <p>Гибкая оплата почасово. Подходит для краткосрочной работы.</p>
+      </div>
+      <div class="service-card" onclick="openServiceModal('schedule')">
+        <h3>Почасовой график</h3>
+        <p>Подходит для мастеров с предварительной записью.</p>
+      </div>
+      <div class="service-card" onclick="openServiceModal('longterm')">
+        <h3>Долгосрочная аренда</h3>
+        <p>Закрепите свое место надолго. Возможность персонализировать зону.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery">
+    <h2 class="section-title">Фотогалерея</h2>
+    <div class="gallery">
+      <img src="https://idei.club/uploads/posts/2022-10/1666959554_7-idei-club-p-rabochee-mesto-manikyurshchitsi-na-kukhne-8.jpg " alt="Мастер маникюра">
+      <img src="https://avatars.mds.yandex.net/get-altay/6249106/2a00000182af1759e91d986c8f9c74a2ce0d/orig " alt="Визажист и бровист">
+      <img src="https://bigfoto.name/uploads/posts/2022-12/1671005285_79-bigfoto-name-p-dizain-kosmeticheskogo-kabineta-80.jpg " alt="Косметолог">
+      <img src="https://cs2.livemaster.ru/storage/7c/7b/f87633f1d2a79ba6500ac1505c6k--dlya-doma-i-interera-grimernyj-stol-90-160-80-sm.jpg " alt="Парикмахер">
+      <img src="https://avatars.mds.yandex.net/get-altay/474904/2a000001872261b318ed7ac9cf8e336f3143/XXL_height " alt="Рабочее место">
+      <img src="https://avatars.mds.yandex.net/get-altay/8133749/2a0000018736df6f245c0228db22b8f421d1/XXXL " alt="Светлое помещение">
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials">
+    <h2 class="section-title">Отзывы клиентов</h2>
+    <div class="testimonials">
+      <div class="testimonial">
+        <p>“Beauty Space стал моим вторым домом. Удобное расположение, отличные условия и дружелюбная атмосфера.”</p>
+        <p><strong>Анастасия</strong>, Визажист</p>
+      </div>
+      <div class="testimonial">
+        <p>“Здесь всё продумано до мелочей — от освещения до кофе-брейка. Работать одно удовольствие!”</p>
+        <p><strong>Ирина</strong>, Мастер маникюра</p>
+      </div>
+      <div class="testimonial">
+        <p>“Отличное пространство для развития и общения с коллегами. Обязательно вернусь снова.”</p>
+        <p><strong>Ольга</strong>, Бровист</p>
+      </div>
+    </div>
+    <button class="write-review-btn" onclick="openReviewModal()">Написать отзыв</button>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2 class="section-title">Контакты</h2>
+    <div class="contacts">
+      <p>г. Новосибирск, ул. Ватутина 45/1</p>
+      <p>Телефон: <a href="tel:+79012082152">8 901 208-21-52</a></p>
+      <p>Email: beauty-space@example.com</p>
+      <p>Соцсети:</p>
+      <ul>
+        <li><a href="#">ВКонтакте</a></li>
+        <li><a href="#">Telegram</a></li>
+        <li><a href="#">WhatsApp</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Beauty Space. Все права защищены.</p>
+    <p>Политика конфиденциальности</p>
+  </footer>
+
+  <!-- Modal for Reviews -->
+  <div id="reviewModal" class="modal">
+    <div class="modal-content">
+      <h3>Оставить отзыв</h3>
+      <form onsubmit="submitReview(event)">
+        <label for="name">Имя:</label>
+        <input type="text" id="name" required style="
+          width: 100%;
+          padding: 0.75rem;
+          margin: 0.5rem 0 1rem 0;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+        "/>
+
+        <label for="phone">Телефон:</label>
+        <input type="tel" id="phone" required style="
+          width: 100%;
+          padding: 0.75rem;
+          margin: 0.5rem 0 1rem 0;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+        "/>
+
+        <label for="message">Ваш отзыв:</label>
+        <textarea id="message" rows="4" required style="
+          width: 100%;
+          padding: 0.75rem;
+          margin: 0.5rem 0 1rem 0;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+        "></textarea>
+
+        <button type="submit" class="btn">Отправить</button>
+        <button type="button" onclick="closeReviewModal()" style="
+          margin-left: 1rem;
+          background: transparent;
+          color: white;
+          border: none;
+          font-weight: 600;
+          cursor: pointer;
+        ">Закрыть</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal for Excursion Booking -->
+  <div id="excursionModal" class="modal">
+    <div class="modal-content">
+      <h3>Записаться на экскурсию</h3>
+      <form onsubmit="submitExcursion(event)">
+        <label for="excursionName">Имя:</label>
+        <input type="text" id="excursionName" required style="
+          width: 100%;
+          padding: 0.75rem;
+          margin: 0.5rem 0 1rem 0;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+        "/>
+
+        <label for="excursionPhone">Телефон:</label>
+        <input type="tel" id="excursionPhone" required style="
+          width: 100%;
+          padding: 0.75rem;
+          margin: 0.5rem 0 1rem 0;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+        "/>
+
+        <label for="excursionDate">Дата и время:</label>
+        <input type="datetime-local" id="excursionDate" required style="
+          width: 100%;
+          padding: 0.75rem;
+          margin: 0.5rem 0 1rem 0;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+        "/>
+
+        <button type="submit" class="btn">Записаться</button>
+        <button type="button" onclick="closeExcursionModal()" style="
+          margin-left: 1rem;
+          background: transparent;
+          color: white;
+          border: none;
+          font-weight: 600;
+          cursor: pointer;
+        ">Закрыть</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal for Service Details -->
+  <div id="serviceModal" class="modal">
+    <div class="modal-content">
+      <h3 id="serviceTitle">Услуга</h3>
+      <p id="serviceDescription">Описание услуги</p>
+      <p id="servicePrice"><strong>Цена:</strong> От 500 ₽ / час</p>
+      <button onclick="closeServiceModal()" class="btn">Закрыть</button>
+    </div>
+  </div>
+
+  <script>
+    // Animate images in About section when visible
+    const aboutImg = document.querySelector('.about-img');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    if (aboutImg) observer.observe(aboutImg);
+
+    // Review modal
+    function openReviewModal() {
+      document.getElementById('reviewModal').style.display = 'flex';
+    }
+
+    function closeReviewModal() {
+      document.getElementById('reviewModal').style.display = 'none';
+    }
+
+    function submitReview(e) {
+      e.preventDefault();
+      alert("Спасибо за ваш отзыв!");
+      closeReviewModal();
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('reviewModal');
+      if (event.target === modal) {
+        closeReviewModal();
+      }
+    }
+
+    // Excursion modal
+    function openExcursionModal() {
+      document.getElementById('excursionModal').style.display = 'flex';
+    }
+
+    function closeExcursionModal() {
+      document.getElementById('excursionModal').style.display = 'none';
+    }
+
+    function submitExcursion(e) {
+      e.preventDefault();
+      alert("Вы успешно записались на экскурсию!");
+      closeExcursionModal();
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('excursionModal');
+      if (event.target === modal) {
+        closeExcursionModal();
+      }
+    }
+
+    // Service modal
+    function openServiceModal(type) {
+      let title = '';
+      let description = '';
+      let price = '';
+
+      if (type === 'hourly') {
+        title = 'Часовая аренда';
+        description = 'Гибкая оплата почасово. Подходит для краткосрочной работы.';
+        price = '300 ₽ / час';
+      } else if (type === 'schedule') {
+        title = 'Почасовой график';
+        description = 'Подходит для мастеров с предварительной записью.';
+        price = 'От 250 ₽ / час';
+      } else if (type === 'longterm') {
+        title = 'Долгосрочная аренда';
+        description = 'Закрепите своё личное пространство с возможностью персонализации.';
+        price = 'От 20 000 ₽ / месяц';
+      }
+
+      document.getElementById('serviceTitle').innerText = title;
+      document.getElementById('serviceDescription').innerText = description;
+      document.getElementById('servicePrice').innerHTML = `<strong>Цена:</strong> ${price}`;
+      document.getElementById('serviceModal').style.display = 'flex';
+    }
+
+    function closeServiceModal() {
+      document.getElementById('serviceModal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('serviceModal');
+      if (event.target === modal) {
+        closeServiceModal();
+      }
+    }
+  </script>
+</body>
+</html>
